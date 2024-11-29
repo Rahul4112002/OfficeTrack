@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      .message {
+          padding: 10px;
+          margin: 10px 0;
+          border-radius: 5px;
+          font-weight: bold;
+      }
+      .message.success {
+          background-color: #d4edda;
+          color: #155724;
+      }
+      .message.error {
+          background-color: #f8d7da;
+          color: #721c24;
+      }
+  </style>
+  
+</head>
+<body>
+    <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
+        <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+          <header class="mb-4 flex items-center justify-between py-4 md:py-8">
+            <!-- logo - start -->
+            <a href="/" class="inline-flex items-center gap-2.5 text-2xl font-bold text-black md:text-3xl ml-20" aria-label="logo">
+              <svg width="95" height="94" viewBox="0 0 95 94" class="h-auto w-6 text-indigo-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M96 0V47L48 94H0V47L48 0H96Z" />
+              </svg>
+      
+              OfficeTrack
+
+            </a>
+            <!-- logo - end -->
+      
+            <!-- nav - start -->
+            <nav class="hidden gap-12 lg:flex mr-65">
+              <a href="/all_emp" class="hidden rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block">View all Employee</a>
+              <a href="/add_emp" class="hidden rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block">Add an Employee</a>
+              <a href="/remove_emp" class="hidden rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block">Remove an Employee</a>
+              <a href="/filter_emp" class="hidden rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block">Filter Employee Details</a>
+            </nav>
+            <!-- nav - end -->
+      
+            
+      
+            <button type="button" class="inline-flex items-center gap-2 rounded-lg bg-gray-200 px-2.5 py-2 text-sm font-semibold text-gray-500 ring-indigo-300 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+              </svg>
+      
+              Menu
+            </button>
+            <!-- buttons - end -->
+          </header>
+          {% if messages %}
+              <div>
+                  {% for message in messages %}
+                      <div class="message {{ message.tags }}">
+                          {{ message }}
+                      </div>
+                  {% endfor %}
+              </div>
+          {% endif %}
+          
+          <div class="mb-0 md:mb-0">
+            <h2 class="mb-0 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">ADD Employee Details</h2>
+          </div>
+        </div>
+
+        <!-- form - start -->
+    <form class="mx-auto grid max-w-screen-md gap-4 sm:grid-cols-2" action="/add_emp" method="post">
+      {% csrf_token %}
+
+      <div>
+        <label for="first_name" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">First name*</label>
+        <input name="first_name" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" value="{{ first_name }}"  />
+      </div>
+
+      <div>
+        <label for="last_name" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Last name*</label>
+        <input name="last_name" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" value="{{ last_name }}"  />
+      </div>
+
+      <div>
+        <label for="salary" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Salary*</label>
+        <input name="salary" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" type="number" value="{{ salary }}"  />
+      </div>
+
+      <div>
+        <label for="bonus" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Bonus*</label>
+        <input name="bonus" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" type="number" value="{{ bonus }}" />
+      </div>
+
+      <div>
+        <label for="dept" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Department*</label>
+        <input name="dept" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" value="{{ dept }}" />
+      </div>
+
+      <div>
+        <label for="role" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Role*</label>
+        <input name="role" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" value="{{ role }}" />
+      </div>
+
+      <div>
+        <label for="hire_date" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Hiring Date*</label>
+        <input name="hire_date" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" type="date" value="{{ hire_date }}" />
+      </div>
+
+      <div>
+        <label for="phone" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Phone Number*</label>
+        <input name="phone" class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" type="number" value="{{ phone }}" />
+      </div>
+
+      <div class="ml-80 flex items-center justify-between sm:col-span-2">
+        <button class="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">Submit</button>
+      </div>
+
+    </form>
+    {% include "footer.html" %}  
+    </div>     
+
+      <script>
+        // Auto-hide messages after 5 seconds
+        setTimeout(() => {
+            const messages = document.querySelectorAll('.message');
+            messages.forEach(message => message.style.display = 'none');
+        }, 10000);
+    </script>
+</body>
+</html>
